@@ -73,13 +73,16 @@ pipeline {
             }
         }
 
-   stage('Push image to Hub') {
+stage('Build and Push Docker Image') {
     steps {
         script {
+            // Build the Docker image with Docker Hub repo tag directly
+            sh "docker build -t satishmishra2109/ekart:latest -f docker/Dockerfile ."
+
+            // Login to Docker Hub securely using --password-stdin
             withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh """
-                    docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-                    docker tag ekart:latest ${DOCKER_USER}/ekart:latest
+                    echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
                     docker push ${DOCKER_USER}/ekart:latest
                 """
             }
