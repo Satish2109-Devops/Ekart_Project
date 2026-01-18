@@ -76,7 +76,7 @@ pipeline {
 stage('Build and Push Docker Image') {
     steps {
         script {
-            // Build the Docker image with Docker Hub repo tag directly
+            // Build with Docker Hub tag
             sh "docker build -t satishmishra2109/ekart:latest -f docker/Dockerfile ."
 
             // Login to Docker Hub securely using --password-stdin
@@ -89,6 +89,7 @@ stage('Build and Push Docker Image') {
         }
     }
 }
+
 
         stage('EKS and Kubectl configuration'){
             steps{
