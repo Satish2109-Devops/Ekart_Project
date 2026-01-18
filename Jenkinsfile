@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/ygminds73/Ekart.git'
+                git branch: 'master', url: 'https://github.com/Satish2109-Devops/Ekart_Project.git'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
 
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonar-token') {
+                withSonarQubeEnv('sonar-server') {
                     sh "${env.SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=EKART \
                         -Dsonar.projectName=EKART \
