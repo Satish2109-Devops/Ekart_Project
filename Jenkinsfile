@@ -73,7 +73,7 @@ pipeline {
             }
         }
 
-    stage('Push image to Hub') {
+   stage('Push image to Hub') {
     steps {
         script {
             withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -85,6 +85,8 @@ pipeline {
             }
         }
     }
+}
+
         stage('EKS and Kubectl configuration'){
             steps{
                 script{
